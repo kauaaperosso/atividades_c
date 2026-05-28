@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct tlist {
+	int value;
+	struct tlist *next;
+};
+typedef struct tlist list;
+// inicio do programa!
+
+list *getDiff(list *l1, list *l2) 
+{
+	list *aux1,*aux2;
+	list *l3, *aux, *firstl3=NULL;
+	//
+	for(aux1=l1; aux1!=NULL;aux1=aux1->next)
+	{ // percorre l1
+		for (aux2=l2;aux2!=NULL;aux2=aux2->next)
+		{ // percorro l2 para cada elemento de l1
+			if (aux1->value==aux2->value)
+			{
+				 break;
+			}
+		}
+		if (aux2==NULL)
+		{
+			l3=(list *)malloc(sizeof(list)); // passo 1
+			l3->value=aux1->value; // passo 2
+			l3->next=NULL;      // passo 2
+			if (firstl3==NULL) 
+			{
+				firstl3=l3;
+				aux=l3;
+		    }
+		    else
+		    {
+				aux->next=l3;
+				aux=l3;
+		    }
+			
+	    }
+	 }
+	 return firstl3;    
+}
+
+int main()
+{
+	list *l1, *l2;
+	l1=(list *)malloc(sizeof(list));
+	l1->value=4;
+	l1->next=(list *)malloc(sizeof(list));
+	l1->next->value=7;
+	l1->next->next=(list *)malloc(sizeof(list));
+	l1->next->next->value=6;
+	l1->next->next->next=(list *)malloc(sizeof(list));
+	l1->next->next->next->value=11;
+	l1->next->next->next->next=NULL;
+    //
+    l2=(list *)malloc(sizeof(list));
+	l2->value=4;
+	l2->next=(list *)malloc(sizeof(list));
+	l2->next->value=7;
+	l2->next->next=(list *)malloc(sizeof(list));
+	l2->next->next->value=6;
+	l2->next->next->next=(list *)malloc(sizeof(list));
+	l2->next->next->next->value=11;
+	l2->next->next->next->next=NULL;
+	//
+	list *aux;
+	printf("Lista 1: \n");
+	for (aux=l1;aux!=NULL;aux=aux->next) printf("***%d\n",aux->value);
+	printf("Lista 2: \n");
+	for (aux=l2;aux!=NULL;aux=aux->next) printf("***%d\n",aux->value);
+	list *l3=getDiff(l1,l2);
+	printf("Lista 3: \n");
+	for (aux=l3;aux!=NULL;aux=aux->next) printf("***%d\n",aux->value);
+
+	return 0;
+	
+}	
